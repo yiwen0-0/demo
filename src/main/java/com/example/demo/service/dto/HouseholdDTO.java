@@ -1,6 +1,8 @@
 package com.example.demo.service.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import com.example.demo.domain.enumeration.HousingType;
 
@@ -13,6 +15,7 @@ public class HouseholdDTO implements Serializable {
 
     private HousingType housingType;
 
+    private List<PersonDTO> familyMembers = new ArrayList<PersonDTO>();
     
     public Long getId() {
         return id;
@@ -28,6 +31,14 @@ public class HouseholdDTO implements Serializable {
 
     public void setHousingType(HousingType housingType) {
         this.housingType = housingType;
+    }
+
+    public List<PersonDTO> getFamilyMembers() {
+        return familyMembers;
+    }
+
+    public void setFamilyMembers(List<PersonDTO> familyMembers) {
+        this.familyMembers = familyMembers;
     }
 
     @Override
@@ -58,4 +69,5 @@ public class HouseholdDTO implements Serializable {
             ", housingType='" + getHousingType() + "'" +
             "}";
     }
+
 }

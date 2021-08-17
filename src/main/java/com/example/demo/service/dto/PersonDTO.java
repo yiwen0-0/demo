@@ -23,13 +23,14 @@ public class PersonDTO implements Serializable {
     @NotNull
     private MaritalStatus maritalStatus;
 
+    private Long spouse;
+
     @NotNull
     private OccupationType occupationType;
 
     private Long annualIncome;
 
     private LocalDate dateOfBirth;
-
 
     private Long householdId;
     
@@ -63,6 +64,14 @@ public class PersonDTO implements Serializable {
 
     public void setMaritalStatus(MaritalStatus maritalStatus) {
         this.maritalStatus = maritalStatus;
+    }
+
+    public Long getSpouse() {
+        return spouse;
+    }
+
+    public void setSpouse(Long spouse) {
+        this.spouse = spouse;
     }
 
     public OccupationType getOccupationType() {
@@ -125,10 +134,12 @@ public class PersonDTO implements Serializable {
             ", name='" + getName() + "'" +
             ", gender='" + getGender() + "'" +
             ", maritalStatus='" + getMaritalStatus() + "'" +
+            ", spouse='" + getSpouse() + "'" +
             ", occupationType='" + getOccupationType() + "'" +
             ", annualIncome=" + getAnnualIncome() +
             ", dateOfBirth='" + getDateOfBirth() + "'" +
             ", householdId=" + getHouseholdId() +
             "}";
     }
+
 }

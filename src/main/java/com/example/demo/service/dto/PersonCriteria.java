@@ -90,6 +90,8 @@ public class PersonCriteria implements Serializable, Criteria {
 
     private MaritalStatusFilter maritalStatus;
 
+    private LongFilter spouse;
+
     private OccupationTypeFilter occupationType;
 
     private LongFilter annualIncome;
@@ -106,6 +108,7 @@ public class PersonCriteria implements Serializable, Criteria {
         this.name = other.name == null ? null : other.name.copy();
         this.gender = other.gender == null ? null : other.gender.copy();
         this.maritalStatus = other.maritalStatus == null ? null : other.maritalStatus.copy();
+        this.spouse = other.spouse == null ? null : other.spouse.copy();
         this.occupationType = other.occupationType == null ? null : other.occupationType.copy();
         this.annualIncome = other.annualIncome == null ? null : other.annualIncome.copy();
         this.dateOfBirth = other.dateOfBirth == null ? null : other.dateOfBirth.copy();
@@ -147,6 +150,14 @@ public class PersonCriteria implements Serializable, Criteria {
 
     public void setMaritalStatus(MaritalStatusFilter maritalStatus) {
         this.maritalStatus = maritalStatus;
+    }
+
+    public LongFilter getSpouse() {
+        return spouse;
+    }
+
+    public void setSpouse(LongFilter spouse) {
+        this.spouse = spouse;
     }
 
     public OccupationTypeFilter getOccupationType() {
@@ -196,6 +207,7 @@ public class PersonCriteria implements Serializable, Criteria {
             Objects.equals(name, that.name) &&
             Objects.equals(gender, that.gender) &&
             Objects.equals(maritalStatus, that.maritalStatus) &&
+            Objects.equals(spouse, that.spouse) &&
             Objects.equals(occupationType, that.occupationType) &&
             Objects.equals(annualIncome, that.annualIncome) &&
             Objects.equals(dateOfBirth, that.dateOfBirth) &&
@@ -209,6 +221,7 @@ public class PersonCriteria implements Serializable, Criteria {
         name,
         gender,
         maritalStatus,
+        spouse,
         occupationType,
         annualIncome,
         dateOfBirth,
@@ -223,6 +236,7 @@ public class PersonCriteria implements Serializable, Criteria {
                 (name != null ? "name=" + name + ", " : "") +
                 (gender != null ? "gender=" + gender + ", " : "") +
                 (maritalStatus != null ? "maritalStatus=" + maritalStatus + ", " : "") +
+                (spouse != null ? "spouse=" + spouse + ", " : "") +
                 (occupationType != null ? "occupationType=" + occupationType + ", " : "") +
                 (annualIncome != null ? "annualIncome=" + annualIncome + ", " : "") +
                 (dateOfBirth != null ? "dateOfBirth=" + dateOfBirth + ", " : "") +

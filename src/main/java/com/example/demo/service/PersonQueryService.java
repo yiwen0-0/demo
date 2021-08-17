@@ -100,6 +100,9 @@ public class PersonQueryService extends QueryService<Person> {
             if (criteria.getMaritalStatus() != null) {
                 specification = specification.and(buildSpecification(criteria.getMaritalStatus(), Person_.maritalStatus));
             }
+            if (criteria.getSpouse() != null) {
+                specification = specification.and(buildSpecification(criteria.getSpouse(), Person_.spouse));
+            }
             if (criteria.getOccupationType() != null) {
                 specification = specification.and(buildSpecification(criteria.getOccupationType(), Person_.occupationType));
             }

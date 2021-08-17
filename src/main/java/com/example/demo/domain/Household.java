@@ -27,12 +27,12 @@ public class Household implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "housing_type")
     private HousingType housingType;
 
     @OneToMany(mappedBy = "household")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Person> people = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

@@ -29,6 +29,7 @@ public class Person implements Serializable {
     private Long id;
 
     @NotNull
+    @Size(max = 255)
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -40,6 +41,9 @@ public class Person implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "marital_status", nullable = false)
     private MaritalStatus maritalStatus;
+
+    @Column(name = "spouse")
+    private Long spouse;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -89,6 +93,19 @@ public class Person implements Serializable {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public Long getSpouse() {
+        return spouse;
+    }
+
+    public Person spouse(Long spouse) {
+        this.spouse = spouse;
+        return this;
+    }
+
+    public void setSpouse(Long spouse) {
+        this.spouse = spouse;
     }
 
     public MaritalStatus getMaritalStatus() {
@@ -180,6 +197,7 @@ public class Person implements Serializable {
             ", name='" + getName() + "'" +
             ", gender='" + getGender() + "'" +
             ", maritalStatus='" + getMaritalStatus() + "'" +
+            ", spouse='" + getSpouse() + "'" +
             ", occupationType='" + getOccupationType() + "'" +
             ", annualIncome=" + getAnnualIncome() +
             ", dateOfBirth='" + getDateOfBirth() + "'" +
