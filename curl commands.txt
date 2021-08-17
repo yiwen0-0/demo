@@ -4,3 +4,5 @@ curl --header "Content-Type: application/json" --request POST --data "{"""name""
 curl --header "Content-Type: application/json" --request POST --data "{"""name""":"""Rose""", """gender""":"""FEMALE""", """maritalStatus""":"""SINGLE""", """occupationType""":"""Unemployed""", """annualIncome""":"""10000""", """dateOfBirth""":"""2015-03-01""", """householdId""":"""1""", """spouse""":"""1"""}" localhost:8080/api/people
 
 curl -X "DELETE" http://localhost:8080/api/households/1
+
+http://localhost:8080/api/households/grant?type=A&householdSize=2

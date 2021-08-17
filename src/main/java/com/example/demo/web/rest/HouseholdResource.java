@@ -6,6 +6,7 @@ import com.example.demo.service.dto.HouseholdDTO;
 import com.example.demo.service.dto.HouseholdCriteria;
 import com.example.demo.service.HouseholdQueryService;
 
+import com.example.demo.web.rest.util.grantUtil.*;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -15,7 +16,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +24,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static com.example.demo.service.constant.GrantConstants.*;
 
 /**
  * REST controller for managing {@link com.example.demo.domain.Household}.
@@ -139,5 +142,61 @@ public class HouseholdResource {
         log.debug("REST request to delete Household : {}", id);
         householdService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+    /**
+     * {@code GET  /households/grant} : get all the households of grant disbursement and given criteria.
+     *
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
+     */
+    @GetMapping("/households/grant")
+    public ResponseEntity<List<HouseholdDTO>> countHouseholds(HouseholdCriteria criteria,
+        @RequestParam String type, @RequestParam(required = false) Integer householdSize,
+        @RequestParam(required = false) Long totalIncome) {
+        log.debug("REST request to count Households by criteria: {}", criteria);
+        String grantType = GRANT_SCHEMES.get(type);
+        List<HouseholdDTO> households = householdQueryService.findByCriteria(criteria);
+
+        if (householdSize != null) {
+            households = households.stream()
+                .filter(household -> household.getFamilyMembers().size() <= householdSize)
+                .collect(Collectors.toList());
+        }
+
+        if (totalIncome != null) {
+            households = households.stream()
+                .filter(household -> household.getTotalHouseholdIncome() <= totalIncome)
+                .collect(Collectors.toList());
+        }
+
+        GrantSearchEngine grantSearchEngine = null;
+
+        switch(grantType) {
+            case "Student Encouragement Bonus":
+                grantSearchEngine = new StudentEncouragementBonus();
+                break;
+            case "Family Togetherness Scheme":
+                grantSearchEngine = new FamilyTogethernessScheme();
+                break;
+            case "Elder Bonus":
+                grantSearchEngine = new ElderBonus();
+                break;
+            case "Baby Sunshine Grant":
+                grantSearchEngine = new BabySunshineGrant();
+                break;
+            case "YOLO GST Grant":
+                grantSearchEngine = new YOLOGSTGrant();
+                break;
+            default:
+                break;
+        }
+        
+        if (grantSearchEngine == null) {
+            throw new BadRequestAlertException("Invalid Grant Type", ENTITY_NAME, "invalidGrantType");
+        }
+        households = grantSearchEngine.getValidHouseholds(households);
+
+        return ResponseEntity.ok().body(households);
     }
 }

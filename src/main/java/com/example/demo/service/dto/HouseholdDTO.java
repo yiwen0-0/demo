@@ -1,9 +1,13 @@
 package com.example.demo.service.dto;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.LongAccumulator;
+
 import com.example.demo.domain.enumeration.HousingType;
 
 /**
@@ -39,6 +43,31 @@ public class HouseholdDTO implements Serializable {
 
     public void setFamilyMembers(List<PersonDTO> familyMembers) {
         this.familyMembers = familyMembers;
+    }
+
+    public Long getTotalHouseholdIncome() {
+        return this.familyMembers.stream().
+            reduce(0L, (subtotal, personDTO) -> Long.sum(subtotal, personDTO.getAnnualIncome()), Long::sum);
+    }
+
+    public Boolean hasMarriedCouple() {
+        for (PersonDTO person: familyMembers) {
+            if (person.getSpouse() != null
+                && this.familyMembers.stream().anyMatch(personDTO -> personDTO.getId() == person.getSpouse())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public Boolean hasMemberWithAgeRange(int min, int max) {
+        return this.familyMembers
+            .stream()
+            .anyMatch(person -> {
+                int age = Period.between(person.getDateOfBirth(), LocalDate.now()).getYears();
+                return age >= min && age <= max;
+                });
     }
 
     @Override
