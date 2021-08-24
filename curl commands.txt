@@ -1,7 +1,7 @@
 curl --header "Content-Type: application/json" --request POST --data "{"""housingType""":"""Landed"""}" localhost:8080/api/households
 
-curl --header "Content-Type: application/json" --request POST --data "{"""name""":"""Jack""", """gender""":"""FEMALE""", """maritalStatus""":"""SINGLE""", """occupationType""":"""Unemployed""", """annualIncome""":"""10000""", """dateOfBirth""":"""2015-03-01""", """householdId""":"""1""" }" localhost:8080/api/people
-curl --header "Content-Type: application/json" --request POST --data "{"""name""":"""Rose""", """gender""":"""FEMALE""", """maritalStatus""":"""SINGLE""", """occupationType""":"""Unemployed""", """annualIncome""":"""10000""", """dateOfBirth""":"""2015-03-01""", """householdId""":"""1""", """spouse""":"""1"""}" localhost:8080/api/people
+curl --header "Content-Type: application/json" --request POST --data "{"""name""":"""Jack""", """gender""":"""FEMALE""", """maritalStatus""":"""SINGLE""", """occupationType""":"""Unemployed""", """annualIncome""":"""10000""", """dateOfBirth""":"""2015-03-01""", """householdId""":"""3""" }" localhost:8080/api/people
+curl --header "Content-Type: application/json" --request POST --data "{"""name""":"""Rose""", """gender""":"""FEMALE""", """maritalStatus""":"""SINGLE""", """occupationType""":"""Unemployed""", """annualIncome""":"""10000""", """dateOfBirth""":"""2015-03-01""", """householdId""":"""3""", """spouse""":"""1"""}" localhost:8080/api/people
 
 curl -X "DELETE" http://localhost:8080/api/households/1
 
