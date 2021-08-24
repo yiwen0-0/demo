@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ElderBonus implements GrantSearchEngine{
-    private int MIN_ELDER_AGE = 18;
+    private int MIN_ELDER_AGE = 50;
 
     @Override
     public List<HouseholdDTO> getValidHouseholds(List<HouseholdDTO> households) {
