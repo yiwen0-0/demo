@@ -155,7 +155,7 @@ public class HouseholdResource {
         @RequestParam String type, @RequestParam(required = false) Integer householdSize,
         @RequestParam(required = false) Long totalIncome) {
         log.debug("REST request to count Households by criteria: {}", criteria);
-        String grantType = GRANT_SCHEMES.get(type);
+
         List<HouseholdDTO> households = householdQueryService.findByCriteria(criteria);
 
         if (householdSize != null) {
@@ -170,6 +170,10 @@ public class HouseholdResource {
                 .collect(Collectors.toList());
         }
 
+        String grantType = GRANT_SCHEMES.getOrDefault(type, null);
+        if (grantType == null) {
+            throw new BadRequestAlertException("Invalid Grant Type", ENTITY_NAME, "invalidGrantType");
+        }
         GrantSearchEngine grantSearchEngine = null;
 
         switch(grantType) {
@@ -191,7 +195,6 @@ public class HouseholdResource {
             default:
                 break;
         }
-        
         if (grantSearchEngine == null) {
             throw new BadRequestAlertException("Invalid Grant Type", ENTITY_NAME, "invalidGrantType");
         }
