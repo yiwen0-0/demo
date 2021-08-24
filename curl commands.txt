@@ -5,4 +5,4 @@ curl --header "Content-Type: application/json" --request POST --data "{"""name""
 
 curl -X "DELETE" http://localhost:8080/api/households/1
 
-http://localhost:8080/api/households/grant?type=A&householdSize=2
+curl "http://localhost:8080/api/households/grant?type=A&householdSize=2"
