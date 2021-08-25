@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class YOLOGSTGrant implements GrantSearchEngine{
-    private Long MAX_HOUSEHOLD_INCOME = 100000L;
+    private final Long MAX_HOUSEHOLD_INCOME = 100000L;
 
     @Override
     public List<HouseholdDTO> getValidHouseholds(List<HouseholdDTO> households) {

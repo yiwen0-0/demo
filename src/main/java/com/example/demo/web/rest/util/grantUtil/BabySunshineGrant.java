@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class BabySunshineGrant implements GrantSearchEngine{
-    private int MAX_CHILD_AGE = 5;
+    private final int MAX_CHILD_AGE = 5;
 
     @Override
     public List<HouseholdDTO> getValidHouseholds(List<HouseholdDTO> households) {

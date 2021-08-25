@@ -28,7 +28,7 @@
 </table>
 
 #Grant Types
-
+All ages are calculated based on year only. (e.g., a person born on 1 Jan 2000 is considered 1-year-old in any date of 2021)
 <table>
 <thead>
     <td>

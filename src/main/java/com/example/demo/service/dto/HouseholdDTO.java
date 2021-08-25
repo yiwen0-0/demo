@@ -53,7 +53,10 @@ public class HouseholdDTO implements Serializable {
     public Boolean hasMarriedCouple() {
         for (PersonDTO person: familyMembers) {
             if (person.getSpouse() != null
-                && this.familyMembers.stream().anyMatch(personDTO -> personDTO.getId() == person.getSpouse())) {
+                && this.familyMembers
+                    .stream()
+                    .anyMatch(personDTO -> (personDTO.getId() == person.getSpouse()
+                        && personDTO.getSpouse() == person.getId()))) {
                 return true;
             }
         }
